@@ -10,6 +10,5 @@ class Discount
   def apply(total, products)
     raise 'Not implemented'
     # implemented this on the subclass of Discount
-    [total - @amount, 0].max
   end
 end
