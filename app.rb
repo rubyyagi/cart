@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'sinatra/param'
 require 'json'
 
 require_relative 'models/cart'
