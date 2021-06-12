@@ -66,7 +66,17 @@
 
     <div class="flex justify-between">
       <button class="underline text-gray-700 text-sm" @click="products.forEach((product, index) => products[index].quantity = 0)">Clear Cart</button>
-      <button class="mt-4 bg-green-600 text-white border border-green-500 px-4 py-1 rounded text-sm shadow-sm hover:bg-green-700" :class="{ 'opacity-50': !products.find(product => product.quantity > 0) }" :disabled="!products.find(product => product.quantity > 0)">Proceed to Checkout</button>
+
+      <form method="POST" action="/checkout">
+        <template x-for="product in products" :key="product.name">
+          <div>
+            <input type="hidden" name="products[][name]" :value="product.name"/>
+            <input type="hidden" name="products[][quantity]" x-bind:value="product.quantity"/>
+            <input type="hidden" name="products[][price]" x-bind:value="product.price"/>
+          </div>
+        </template>
+        <button type="submit" class="mt-4 bg-green-600 text-white border border-green-500 px-4 py-1 rounded text-sm shadow-sm hover:bg-green-700" :class="{ 'opacity-50': !products.find(product => product.quantity > 0) }" :disabled="!products.find(product => product.quantity > 0)">Proceed to Checkout</button>
+      </form>
     </div>
   </div>
 </body>

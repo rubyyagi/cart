@@ -2,21 +2,36 @@
 
 require_relative 'product'
 require_relative 'bulk_discount'
-require_relative 'cart_percentage_discount'
 
 class Cart
   attr_reader :products, :discounts
 
-  def initialize(discounts)
+  def initialize(discounts:, products: [])
     @discounts = discounts
-    @products = []
+    @products = products
   end
 
-  def add(product)
-    @products << product
+  def original_total_cents
+    @products.reduce(0) { |total, product| total + product.total_price_cents}
   end
 
-  def total
-    @discounts.reduce(0) { |total, discount| discount.call(total, @products) }
+  def original_total_formatted
+    '$%.2f' % (original_total_cents / 100.to_f)
+  end
+
+  def total_cents
+    @discounts.reduce(original_total_cents) { |total, discount| discount.apply(total, @products) }
+  end
+
+  def total_formatted
+    '$%.2f' % (total_cents / 100.to_f)
+  end
+
+  def discount_formatted
+    '$%.2f' % ( (original_total_cents - total_cents) / 100.to_f)
+  end
+
+  def has_discount?
+    (original_total_cents - total_cents) > 0
   end
 end
