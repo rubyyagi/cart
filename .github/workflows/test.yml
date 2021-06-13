@@ -1,0 +1,34 @@
+# .github/workflows/test.yml
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    env:
+      BUNDLE_JOBS: 2
+      BUNDLE_RETRY: 3
+      BUNDLE_PATH: vendor/bundle
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+      - name: Bundle Install
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle check || bundle install --jobs 4 --retry 3
+      - name: Run Rspec test
+        id: rspec-test
+        continue-on-error: true
+        run : |
+          rspec .
+      - name: Notify failure if rspec test fail, workaround for continue-on-error
+        if: steps.rspec-test.outcome != 'success'
+        run: exit 1
