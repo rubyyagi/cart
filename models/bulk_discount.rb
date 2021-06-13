@@ -22,12 +22,10 @@ class BulkDiscount < Discount
   def apply(total, products)
     amount_to_deduct = 0
 
-    qualified_product = products.select{ |product| product.name == product_name }.first
+    # your code here ....
+    # try running `rspec .` in your terminal each time you want to check if the code is correct
 
-    if qualified_product
-      amount_to_deduct = (qualified_product.quantity / quantity_required) * @amount
-    end
-
+    # in case the amount to deduct is larger than total, we will return 0, so that customer wont see negative total
     [total - amount_to_deduct, 0].max
   end
 end
