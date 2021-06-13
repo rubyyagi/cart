@@ -20,9 +20,9 @@ class BulkDiscount < Discount
 
   # this should return the cart total (in cents, integer) after the discount is applied
   def apply(total, products)
-    qualified_product = products.select{ |product| product.name == product_name }.first
-
     amount_to_deduct = 0
+
+    qualified_product = products.select{ |product| product.name == product_name }.first
 
     if qualified_product
       amount_to_deduct = (qualified_product.quantity / quantity_required) * @amount
