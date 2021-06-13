@@ -28,7 +28,7 @@ jobs:
         id: rspec-test
         continue-on-error: true
         run : |
-          rspec .
+          bundle exec rspec .
       - name: Notify failure if rspec test fail, workaround for continue-on-error
         if: steps.rspec-test.outcome != 'success'
         run: exit 1
