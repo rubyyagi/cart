@@ -22,6 +22,7 @@ class BulkDiscount < Discount
   def apply(total, products)
     amount_to_deduct = 0
 
+    # check if the product match the name
     qualified_product = products.select{ |product| product.name == product_name }.first
 
     if qualified_product
