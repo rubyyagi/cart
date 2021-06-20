@@ -16,8 +16,9 @@ end
 post '/checkout' do
   # the products name are all in lowercase, 'apple', 'orange' and 'banana'
   products = params[:products].map do |product_param|
-    Product.new(name: product_param[:name], unit_price_cents: product_param[:price].to_i * 100 , quantity: product_param[:quantity].to_i)
-  end.select{ |product| product.quantity > 0}
+    Product.new(name: product_param[:name], unit_price_cents: product_param[:price].to_i * 100,
+                quantity: product_param[:quantity].to_i)
+  end.select { |product| product.quantity > 0 }
 
   discounts = [
     BulkDiscount.new(amount: 100, quantity_required: 3, product_name: 'apple'),
@@ -26,5 +27,7 @@ post '/checkout' do
 
   cart = Cart.new(discounts: discounts, products: products)
 
-  erb :checkout, :locals => { products: products, total: cart.total_formatted, discount: cart.discount_formatted, has_discount: cart.has_discount? }
+  erb :checkout,
+      locals: { products: products, total: cart.total_formatted, discount: cart.discount_formatted,
+                has_discount: cart.has_discount? }
 end

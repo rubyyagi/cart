@@ -12,11 +12,11 @@ class Cart
   end
 
   def original_total_cents
-    @products.reduce(0) { |total, product| total + product.total_price_cents}
+    @products.reduce(0) { |total, product| total + product.total_price_cents }
   end
 
   def original_total_formatted
-    '$%.2f' % (original_total_cents / 100.to_f)
+    format('$%.2f', (original_total_cents / 100.to_f))
   end
 
   def total_cents
@@ -24,11 +24,11 @@ class Cart
   end
 
   def total_formatted
-    '$%.2f' % (total_cents / 100.to_f)
+    format('$%.2f', (total_cents / 100.to_f))
   end
 
   def discount_formatted
-    '$%.2f' % ( (original_total_cents - total_cents) / 100.to_f)
+    format('$%.2f', ((original_total_cents - total_cents) / 100.to_f))
   end
 
   def has_discount?
