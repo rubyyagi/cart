@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../models/cart.rb'
+require_relative '../models/cart'
 require_relative '../models/bulk_discount'
 require_relative '../models/product'
 
@@ -56,7 +56,7 @@ RSpec.describe Cart, type: :model do
     it 'returns whether the cart has discount applied' do
       expect(cart.has_discount?).to eq(true)
 
-      # cart with only orange, does not qualify for the bulk discount for apple and banana, 
+      # cart with only orange, does not qualify for the bulk discount for apple and banana,
       # hence no discount is applied (ie. total == original_total)
       expect(ineligible_cart.has_discount?).to eq(false)
     end

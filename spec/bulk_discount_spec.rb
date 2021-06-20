@@ -15,7 +15,7 @@ RSpec.describe BulkDiscount, type: :model do
       # 300 * 7 + 500 * 5 = 4600
       original_total = apple.total_price_cents + banana.total_price_cents
 
-      # 4600 - (100 * 2) = 4400 , as the apple bulk discount is applied two times 
+      # 4600 - (100 * 2) = 4400 , as the apple bulk discount is applied two times
       discounted_total = bulk_discount_apple.apply(original_total, [apple, banana])
 
       expect(discounted_total).to eq(4400)

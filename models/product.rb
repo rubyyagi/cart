@@ -5,7 +5,7 @@ class Product
   attr_reader :name
   attr_accessor :unit_price_cents, :quantity
 
-  # cents means the price in cents (smallest unit), if the product price is $34.50, the price in cents (integer) is 3450, 
+  # cents means the price in cents (smallest unit), if the product price is $34.50, the price in cents (integer) is 3450,
   # this is to avoid using decimal / floating point for price data
 
   # @name [String] the name of the Product
